@@ -1,0 +1,13 @@
+$primary: #FA983A;
+
+@import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+
+body {
+    background-color: white;
+    font-family: 'Grand Hotel', cursive;
+}
+
+.mainTitle {
+    font-size: 28pt;
+}
