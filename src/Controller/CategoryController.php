@@ -12,7 +12,9 @@ use App\Repository\ProgramRepository;
 class CategoryController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(
+        CategoryRepository $categoryRepository
+    ): Response
     {
         $categories = $categoryRepository->findAll();
 
@@ -22,7 +24,11 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{categoryName}', name: 'show')]
-    public function show(string $categoryName, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response
+    public function show(
+        string             $categoryName,
+        CategoryRepository $categoryRepository,
+        ProgramRepository  $programRepository
+    ): Response
     {
         $category = $categoryRepository->findOneBy(['name' => $categoryName]);
 
@@ -31,8 +37,11 @@ class CategoryController extends AbstractController
                 'No category with category : ' . $categoryName . ' found in categories table.'
             );
         } else {
-            $category = $categoryRepository->findOneBy(['name' => $categoryName]);
-            $programs = $programRepository->findBy(['category' => $category], ["id" => 'desc'], 3);
+            $programs = $programRepository->findBy(
+                ['category' => $category],
+                ["id" => 'desc'],
+                3
+            );
         }
 
         return $this->render('category/show.html.twig', ['category' => $category, 'programs' => $programs]);
