@@ -15,7 +15,7 @@ class Season
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Program::class, inversedBy: 'number')]
+    #[ORM\ManyToOne(targetEntity: Program::class, inversedBy: 'seasons')]
     #[ORM\JoinColumn(nullable: false)]
     private Program $program;
 
@@ -88,7 +88,7 @@ class Season
 
         return $this;
     }
-    
+
     public function getEpisodes(): Collection
     {
         return $this->episodes;

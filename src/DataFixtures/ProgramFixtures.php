@@ -11,39 +11,41 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
     public const PROGRAMS = [
         [
-            "title" => "Walking Dead",
-            "synopsis" => "Des zombies envahissent la terre",
-            "category" => "category_Action",
-        ],
-        [
             "title" => "The Wire",
-            "synopsis" => "Des flics poursuivent des dealers",
-            "category" => "category_Policier",
+            "synopsis" => "Des flics poursuivent des dealers, ACAB mais on les aime bien quand même",
+            "category" => "Policier",
         ],
         [
             'title' => 'The Office',
             'synopsis' => 'Des salariés vendent du papier',
-            'category' => 'category_Comédie',
+            'category' => 'Comédie',
         ],
         [
             'title' => 'Barry',
             'synopsis' => 'Un tueur à gages fait du théâtre',
-            'category' => 'category_Comédie',
+            'category' => 'Comédie',
         ],
         [
             'title' => 'Atlanta',
-            'synopsis' => 'Un rappeur et ses potes font du rap',
-            'category' => 'category_Comédie',
+            'synopsis' => "Les blanc.he.s sont mal à l'aise",
+            'category' => 'Comédie',
+        ],
+        [
+            'title' => 'Watchmen',
+            'synopsis' => "On ne sait pas si les blanc.he.s sont encore plus mal à l'aise mais clairement c'est un mauvais moment",
+            'category' => 'Comédie',
         ],
     ];
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        foreach (self::PROGRAMS as $programs) {
+        foreach (self::PROGRAMS as $key => $programName) {
             $program = new Program();
-            $program->setTitle($programs["title"]);
-            $program->setSynopsis($programs["synopsis"]);
-            $program->setCategory($this->getReference($programs["category"]));
+            $program
+                ->setTitle($programName["title"])
+                ->setSynopsis($programName["synopsis"])
+                ->setCategory($this->getReference("category_" . $programName["category"]));
+            $this->addReference('program_' . $key, $program);
             $manager->persist($program);
         }
         $manager->flush();
