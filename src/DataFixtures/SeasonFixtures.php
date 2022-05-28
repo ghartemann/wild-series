@@ -13,13 +13,14 @@ class SeasonFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $season = new Season();
             $season
                 ->setNumber($faker->numberBetween(1, 10))
                 ->setYear($faker->year())
                 ->setDescription($faker->paragraphs(3, true))
                 ->setProgram($this->getReference('program_' . $faker->numberBetween(0, 4)));
+            $this->addReference('season_' . $faker->numberBetween(1, 10), $season);
             $manager->persist($season);
         }
         $manager->flush();
