@@ -11,12 +11,12 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
     public const PROGRAMS = [
         [
-            "title" => "The Wire",
+            "title" => "Wire (The)",
             "synopsis" => "Des flics poursuivent des dealers, ACAB mais on les aime bien quand même",
             "category" => "Policier",
         ],
         [
-            'title' => 'The Office',
+            'title' => 'Office (The)',
             'synopsis' => 'Des salariés vendent du papier',
             'category' => 'Comédie',
         ],
@@ -32,7 +32,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         ],
         [
             'title' => 'Watchmen',
-            'synopsis' => "On ne sait pas si les blanc.he.s sont encore plus mal à l'aise mais clairement c'est un mauvais moment",
+            'synopsis' => "Clairement encore un mauvais moment pour les blanc.he.s",
             'category' => 'Comédie',
         ],
     ];
@@ -40,11 +40,14 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         foreach (self::PROGRAMS as $key => $programName) {
+            $key = $key + 1;
+
             $program = new Program();
             $program
                 ->setTitle($programName["title"])
                 ->setSynopsis($programName["synopsis"])
                 ->setCategory($this->getReference("category_" . $programName["category"]));
+
             $this->addReference('program_' . $key, $program);
             $manager->persist($program);
         }
