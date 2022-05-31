@@ -4,14 +4,15 @@
 
 {% block body %}
 
-    <h1>Toutes les séries de la table program : </h1>
+    <h1>Toutes les séries : </h1>
 
-    {% for program in programs %}
+    {% for program in programs|sort((a, b) => a.title <=> b.title) %}
         <div>
-            <h2>{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
+            <h2>{{ program.title }}</h2>
+            <p>Catégorie : {{ program.category.name }}</p>
             <p>{{ program.synopsis }}</p>
             {# Lien vers la fiche de la série : #}
-            <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+            <a href="{{ path("program_show", { program: program.id }) }}">Voir la fiche</a>
         </div>
     {% else %}
         Aucune série trouvée.

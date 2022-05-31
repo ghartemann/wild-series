@@ -11,12 +11,12 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
     public const PROGRAMS = [
         [
-            "title" => "The Wire",
+            "title" => "Wire (The)",
             "synopsis" => "Des flics poursuivent des dealers, ACAB mais on les aime bien quand même",
             "category" => "Policier",
         ],
         [
-            'title' => 'The Office',
+            'title' => 'Office (The)',
             'synopsis' => 'Des salariés vendent du papier',
             'category' => 'Comédie',
         ],

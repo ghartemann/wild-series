@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>{{ episode.season.program.title }}
+
+        {% if episode.season.number < 10 %}
+            - S0{{ episode.season.number }}
+        {% endif %}
+        {% if episode.season.number >= 10 %}
+            - S{{ episode.season.number }}
+        {% endif %}
+        {% if episode.number < 10 %}
+            E0{{ episode.number }}
+        {% endif %}
+        {% if episode.number >= 10 %}
+            E{{ episode.number }}
+        {% endif %}
+        - {{ episode.title|trim('.') }}</h2>
+    <p>{{ episode.synopsis }}</p>
+    <a href="{{ path("program_season_show", { program: program.id, season: season.id}) }}">
+        Retour à la saison {{ episode.season.number }}
+    </a>
+{% endblock %}
