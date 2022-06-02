@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Form\ProgramType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
@@ -52,7 +53,8 @@ class ProgramController extends AbstractController
     public function show(
         SeasonRepository $seasonRepository,
         Program          $program,
-    ): Response {
+    ): Response
+    {
         $seasons = $seasonRepository->findBy(['program' => $program]);
 
         return $this->render('program/program_show.html.twig', ['program' => $program, 'seasons' => $seasons]);
@@ -63,7 +65,8 @@ class ProgramController extends AbstractController
         EpisodeRepository $episodeRepository,
         Program           $program,
         Season            $season,
-    ): Response {
+    ): Response
+    {
         $episodes = $episodeRepository->findBy(['season' => $season]);
 
         return $this->render(
@@ -81,7 +84,8 @@ class ProgramController extends AbstractController
         Program $program,
         Season  $season,
         Episode $episode,
-    ): Response {
+    ): Response
+    {
         return $this->render(
             'program/episode_show.html.twig',
             [
