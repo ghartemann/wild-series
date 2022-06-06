@@ -6,8 +6,11 @@ use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
+#[UniqueEntity('title', message: 'Cette série existe déjà')]
 class Program
 {
     #[ORM\Id]
@@ -16,9 +19,12 @@ class Program
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(max: 255, maxMessage: 'Ce champ ne peut excéder 255 caractères')]
+    #[Assert\NotBlank]
     private string $title;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank(message: 'Vous devez saisir un synopsis')]
     private string $synopsis;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -26,6 +32,7 @@ class Program
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: "programs")]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Vous devez sélectionner une catégorie')]
     private Category $category;
 
     #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class, orphanRemoval: true)]
