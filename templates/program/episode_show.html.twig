@@ -19,7 +19,7 @@
         {% endif %}
         - {{ episode.title|trim('.') }}</h2>
     <p>{{ episode.synopsis }}</p>
-    <a href="{{ path("program_season_show", { program: program.id, season: season.id}) }}">
+    <a href="{{ path("program_season_show", { slug: program.slug, slug_season: season.slug}) }}">
         Retour à la saison {{ episode.season.number }}
     </a>
 {% endblock %}

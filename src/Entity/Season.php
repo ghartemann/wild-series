@@ -13,7 +13,7 @@ class Season
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\ManyToOne(targetEntity: Program::class, inversedBy: 'seasons')]
     #[ORM\JoinColumn(nullable: false)]
@@ -30,6 +30,25 @@ class Season
 
     #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class)]
     private Collection $episodes;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $slug_season;
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug_season;
+    }
+
+    /**
+     * @param string|null $slug_season
+     */
+    public function setSlug(?string $slug_season): void
+    {
+        $this->slug_season = $slug_season;
+    }
 
     public function __construct()
     {

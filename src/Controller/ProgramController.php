@@ -10,6 +10,7 @@ use App\Form\ProgramType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
+use App\Service\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, ProgramRepository $programRepository): Response
+    public function new(Request $request, ProgramRepository $programRepository, Slugify $slugify): Response
     {
         $program = new Program();
 
@@ -39,6 +40,10 @@ class ProgramController extends AbstractController
 
         // Was the form submitted ?
         if ($form->isSubmitted() && $form->isValid()) {
+            // slug generation
+            $slug = $slugify->generate($program->getTitle());
+            $program->setSlug($slug);
+
             $programRepository->add($program, true);
 
             // Redirect to categories list
@@ -49,7 +54,7 @@ class ProgramController extends AbstractController
         return $this->RenderForm('program/new.html.twig', ['form' => $form]);
     }
 
-    #[Route('/{program}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(
         SeasonRepository $seasonRepository,
         Program          $program,
@@ -60,7 +65,7 @@ class ProgramController extends AbstractController
         return $this->render('program/program_show.html.twig', ['program' => $program, 'seasons' => $seasons]);
     }
 
-    #[Route('/{program}/seasons/{season}', name: 'season_show', methods: ['GET'])]
+    #[Route('/{slug}/seasons/{slug_season}', name: 'season_show', methods: ['GET'])]
     public function showSeason(
         EpisodeRepository $episodeRepository,
         Program           $program,
@@ -79,7 +84,7 @@ class ProgramController extends AbstractController
         );
     }
 
-    #[Route('/{program}/seasons/{season}/episode/{episode}', name: 'episode_show', methods: ['GET'])]
+    #[Route('/{slug}/seasons/{slug_season}/episode/{slug_episode}', name: 'episode_show', methods: ['GET'])]
     public function showEpisode(
         Program $program,
         Season  $season,
