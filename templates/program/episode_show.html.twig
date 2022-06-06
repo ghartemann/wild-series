@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} - {{ episode.season.program.title }} S{{ episode.season.number }}E{{ episode.number }}{% endblock %}
+
 {% block body %}
     <h2>{{ episode.season.program.title }}
 

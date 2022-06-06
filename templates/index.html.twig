@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Wild Series
-{% endblock %}
-
 {% block body %}
-
-	<h1>Bienvenue</h1>
-	<img src="{{ asset('build/dog.jpeg') }}" alt=""/>
-
+    <div class="header-bg">
+        <h1>Vos séries, toutes au même endroit.</h1>
+    </div>
+    <div>
+        <div>
+            <h2>
+                <a href="/program">Séries</a>
+                <a href="/actor">Acteur.rices</a>
+            </h2>
+        </div>
+    </div>
 {% endblock %}

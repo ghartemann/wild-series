@@ -4,10 +4,34 @@ $primary: #FA983A;
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
 body {
-    background-color: white;
-    font-family: 'Grand Hotel', cursive;
+  background-color: #F7F1E3;
+  color: #E55039;
+  font-family: "Roboto Light", sans-serif;
+}
+
+h1, h2, h3, .mainTitle {
+  font-family: 'Grand Hotel', cursive;
 }
 
 .mainTitle {
-    font-size: 28pt;
+  color: white;
+  font-size: 28pt;
+}
+
+.navbar {
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 1px 10px 1px;
+}
+
+.header-bg h1 {
+  font-size: 60pt;
+  color: white;
+}
+
+.header-bg {
+  height: 60vh;
+  background: url('../images/bg.jpg') center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -23,7 +23,7 @@ class Episode
     #[ORM\Column(type: 'integer')]
     private ?int $number;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private ?string $synopsis;
 
     public function getId(): ?int
